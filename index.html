@@ -107,6 +107,12 @@
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
+            navigator.clipboard.readText().then(function(text) {
+                unityInstance.SendMessage("Menus", "JavaScriptPasteCall", text.toString())
+                console.log("Pasted from clipboard: " + text);
+            }, function(err) {
+                console.error("Failed to paste from clipboard: " + err);
+            });
             unityInstance.SetFullscreen(1);
           };
         }).catch((message) => {
